@@ -1,0 +1,9 @@
+
+public class Example {
+
+	public void display(String[] args) {
+		String s = "Hi welcome";
+		s = s.toUpperCase();
+		System.out.println(s);
+	}
+}

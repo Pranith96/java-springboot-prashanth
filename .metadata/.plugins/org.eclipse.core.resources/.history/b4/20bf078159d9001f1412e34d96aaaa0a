@@ -1,0 +1,13 @@
+import java.util.function.Predicate;
+
+public class Example {
+
+	public static void main(String[] args) {
+		Predicate<Integer> p = (x) -> {
+			if(x%2==0) {
+				return true;
+			}
+			return false;
+		};
+	}
+}

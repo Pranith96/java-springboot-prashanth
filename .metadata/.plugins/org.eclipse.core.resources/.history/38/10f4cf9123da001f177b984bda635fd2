@@ -1,0 +1,35 @@
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class Example {
+
+	public void displayActiveStudents(List<Student> students) {
+
+		List<Student> lists = students.stream().filter(x -> x.getStatus().equals("ACTIVE"))
+				.collect(Collectors.toList());
+		System.out.println(lists);
+
+		Stream<Student> lists1 = students.stream().filter(x -> x.getStatus().equals("ACTIVE"));
+		List<Student> lists2 = lists1.collect(Collectors.toList());
+		System.out.println(lists2);
+		// lists1.distinct().count();
+	}
+
+	public void displayStudents(List<Student> students) {
+
+		List<Student> lists = students.stream().map(x -> {
+			if ("XYZ".equals(x.getName())) {
+				x.setName("GHJK");
+			}
+			return x;
+		}).collect(Collectors.toList());
+		System.out.println(lists);
+	}
+
+	public void displayStudents1(List<Student> students) {
+
+		List<Student> lists = students.stream().map(x -> x.getAge() + 5).collect(Collectors.toList());
+		System.out.println(lists);
+	}
+}

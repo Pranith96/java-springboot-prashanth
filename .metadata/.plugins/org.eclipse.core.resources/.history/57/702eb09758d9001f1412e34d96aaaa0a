@@ -1,0 +1,10 @@
+
+public class MainMethod2 {
+
+	public static void main(String[] args) {
+		Summation sm = (x, y) -> {
+			int z = x + y;
+			return z;
+		};
+	}
+}

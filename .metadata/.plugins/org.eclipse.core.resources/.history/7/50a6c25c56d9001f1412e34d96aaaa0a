@@ -1,0 +1,7 @@
+
+public class AdditionImpl implements Addition {
+
+	public void add(int x, int y) {
+
+	}
+}
