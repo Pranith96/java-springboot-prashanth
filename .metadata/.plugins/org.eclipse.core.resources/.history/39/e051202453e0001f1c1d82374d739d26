@@ -1,0 +1,29 @@
+package com.employee.model;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="Employee_table")
+public class Employee {
+
+	@Id
+	private Integer id;
+
+	private String name;
+
+	private String mobileNumber;
+	private Integer age;
+	private String emailId;
+	private String status;
+	private Gender gender;
+
+	private String empId;
+	private String password;
+
+	private LocalDateTime createdAt;
+
+	private LocalDateTime updatedAt;
+}

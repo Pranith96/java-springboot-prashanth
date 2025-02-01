@@ -1,0 +1,32 @@
+package com.employee.service;
+
+import org.springframework.stereotype.Service;
+
+import com.employee.dto.EmployeeRequest;
+import com.employee.dto.EmployeeResponse;
+import com.employee.model.Employee;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	@Override
+	public EmployeeResponse createEmployee(EmployeeRequest employeeRequest) {
+
+		Employee employee = new Employee();
+		employee.setName(employeeRequest.getName());
+		employee.setAge(employeeRequest.getAge());
+		employee.setEmailId(employeeRequest.getEmailId());
+		employee.setEmpId(generateEmpId());
+		employee.setGender(employeeRequest.getGender());
+		employee.setMobileNumber(employeeRequest.getMobileNumber());
+		employee.setPassword(employeeRequest.getPassword());
+		employee.setStatus(null);
+		return null;
+	}
+
+	private String generateEmpId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

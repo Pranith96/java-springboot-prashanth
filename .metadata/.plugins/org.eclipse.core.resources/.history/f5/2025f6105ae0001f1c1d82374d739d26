@@ -1,0 +1,55 @@
+package com.employee.service;
+
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.employee.dto.EmployeeRequest;
+import com.employee.dto.EmployeeResponse;
+import com.employee.model.Employee;
+import com.employee.repository.EmployeeRepository;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	@Autowired
+	EmployeeRepository employeeRepository;
+
+	@Override
+	public EmployeeResponse createEmployee(EmployeeRequest employeeRequest) {
+		Employee response = employeeRepository.save(convertEmpDtoToEntity(employeeRequest));
+
+		EmployeeResponse empResponse = convertEmpReponseToDto(response);
+		empResponse.setEmpId(response.getEmpId());
+		empResponse.setMessage("Successfully saved");
+		return empResponse;
+	}
+
+	private EmployeeResponse convertEmpReponseToDto(Employee response) {
+		EmployeeResponse empResponse = new EmployeeResponse();
+		empResponse.setEmpId(response.getEmpId());
+		empResponse.setMessage("Successfully saved");
+		return empResponse;
+	}
+
+	private Employee convertEmpDtoToEntity(EmployeeRequest employeeRequest) {
+		Employee employee = new Employee();
+		employee.setName(employeeRequest.getName());
+		employee.setAge(employeeRequest.getAge());
+		employee.setEmailId(employeeRequest.getEmailId());
+		employee.setEmpId(generateEmpId());
+		employee.setGender(employeeRequest.getGender());
+		employee.setMobileNumber(employeeRequest.getMobileNumber());
+		employee.setPassword(employeeRequest.getPassword());
+		employee.setStatus("ACTIVE");
+		return employee;
+	}
+
+	private String generateEmpId() {
+		Random random = new Random();
+		int num = random.nextInt(1111, 9999);
+		String employeeId = "JKDF" + num;
+		return employeeId;
+	}
+}

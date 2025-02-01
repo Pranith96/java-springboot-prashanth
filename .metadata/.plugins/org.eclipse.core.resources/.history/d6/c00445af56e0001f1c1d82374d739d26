@@ -1,0 +1,31 @@
+package com.employee.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.employee.dto.EmployeeRequest;
+import com.employee.dto.EmployeeResponse;
+
+@RestController
+@RequestMapping("/student")
+public class StudentController {
+
+	@GetMapping("/get")
+	public String message() {
+		return "Hello world spring";
+	}
+
+	@GetMapping("/data")
+	public String welcome() {
+		return "Hello welcome to java";
+	}
+	
+	@PostMapping("/")
+	public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeRequest employeeRequest){
+		
+	}
+}

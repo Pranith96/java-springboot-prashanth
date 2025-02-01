@@ -1,0 +1,8 @@
+package com.employee.dto;
+
+public class EmployeeResponse {
+
+	private String empId;
+
+	private String message;
+}
