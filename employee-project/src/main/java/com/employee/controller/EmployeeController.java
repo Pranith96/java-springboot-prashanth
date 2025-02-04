@@ -1,16 +1,21 @@
 package com.employee.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.employee.dto.EmployeeRequest;
 import com.employee.dto.EmployeeResponse;
+import com.employee.model.Employee;
 import com.employee.service.EmployeeService;
 
 @RestController
@@ -37,9 +42,22 @@ public class EmployeeController {
 			EmployeeResponse empResponse = new EmployeeResponse();
 			empResponse.setEmpId(null);
 			empResponse.setMessage("Data not saved");
-			//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new EmployeeResponse(null, "Data not saved"));
+			//return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new EmployeeResponse(null, "Data not saved"));
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<List<Employee>> getAllEmployeeRecords(@RequestParam(value = "activeTag", required = false) String activeTag){
+		List<Employee> response = employeeService.getAllEmployees(activeTag);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	
+	@GetMapping("/{employeeId}")
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable("employeeId") String employeeId){
+		Employee response = employeeService.getEmployeeById(employeeId);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }

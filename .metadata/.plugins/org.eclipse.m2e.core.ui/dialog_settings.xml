@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\Public\Pranith\spring modules projects\microservices modules\product-service"/>
 			<item value="C:\Users\HP\Downloads\demo"/>
 		</list>
 		<list key="projectNameTemplate">

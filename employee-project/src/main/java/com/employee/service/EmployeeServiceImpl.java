@@ -1,6 +1,9 @@
 package com.employee.service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +12,8 @@ import com.employee.dto.EmployeeRequest;
 import com.employee.dto.EmployeeResponse;
 import com.employee.model.Employee;
 import com.employee.repository.EmployeeRepository;
+
+import io.micrometer.common.util.StringUtils;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -50,5 +55,36 @@ public class EmployeeServiceImpl implements EmployeeService {
 		int num = random.nextInt(1111, 9999);
 		String employeeId = "JKDF" + num;
 		return employeeId;
+	}
+
+	@Override
+	public List<Employee> getAllEmployees(String activeTag) {
+		List<Employee> results = null;
+
+		if (StringUtils.isNotBlank(activeTag)) {
+			if ("Y".equals(activeTag)) {
+				results = employeeRepository.findAll().stream().filter(emp -> emp.getStatus().equals("ACTIVE"))
+						.collect(Collectors.toList());
+			} else if ("N".equals(activeTag)) {
+				results = employeeRepository.findAll().stream().filter(emp -> emp.getStatus().equals("INACTIVE"))
+						.collect(Collectors.toList());
+			}
+		} else {
+			results = employeeRepository.findAll();
+		}
+		if (results == null || results.isEmpty()) {
+			throw new RuntimeException("No records found");
+		}
+		return results;
+	}
+
+	@Override
+	public Employee getEmployeeById(String employeeId) {
+		//Optional<Employee> response = employeeRepository.findById(primaryKeyValue);
+		Optional<Employee> response =employeeRepository.findByEmpId(employeeId);
+		if(!response.isPresent()) {
+			throw new RuntimeException("No records found for emp id");
+		}
+		return response.get();
 	}
 }

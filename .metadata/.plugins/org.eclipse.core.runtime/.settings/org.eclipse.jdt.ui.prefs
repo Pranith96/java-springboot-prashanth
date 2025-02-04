@@ -1,4 +1,4 @@
-content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="Addition"><rhs name\="AdditionImpl"/></lhs><lhs name\="AdditionImpl"><rhs name\="AdditionImpl"/></lhs><lhs name\="Example"><rhs name\="Example"/></lhs></history>
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="Addition"><rhs name\="AdditionImpl"/></lhs><lhs name\="AdditionImpl"><rhs name\="AdditionImpl"/></lhs><lhs name\="Example"><rhs name\="Example"/></lhs><lhs name\="java.lang.Enum"><rhs name\="jakarta.persistence.EnumType"/></lhs><lhs name\="java.lang.constant.Constable"><rhs name\="jakarta.persistence.EnumType"/></lhs><lhs name\="org.springframework.http.HttpStatusCode"><rhs name\="org.springframework.http.HttpStatus"/></lhs><lhs name\="com.employee.dto.EmployeeResponse"><rhs name\="com.employee.dto.EmployeeResponse"/></lhs></history>
 content_assist_number_of_computers=15
 content_assist_proposals_background=255,255,255
 content_assist_proposals_foreground=0,0,0
