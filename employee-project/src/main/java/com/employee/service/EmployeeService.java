@@ -14,4 +14,10 @@ public interface EmployeeService {
 
 	Employee getEmployeeById(String employeeId);
 
+	String updateEmployee(EmployeeRequest employeeRequest, String empId);
+
+	String updatePassword(String employeeId, String password);
+
+	String deleteEmployeeById(String employeeId);
+
 }

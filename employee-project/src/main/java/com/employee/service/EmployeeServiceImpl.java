@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.employee.dto.EmployeeRequest;
 import com.employee.dto.EmployeeResponse;
@@ -80,11 +81,58 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Employee getEmployeeById(String employeeId) {
-		//Optional<Employee> response = employeeRepository.findById(primaryKeyValue);
-		Optional<Employee> response =employeeRepository.findByEmpId(employeeId);
-		if(!response.isPresent()) {
+		// Optional<Employee> response = employeeRepository.findById(primaryKeyValue);
+		Optional<Employee> response = employeeRepository.findByEmpId(employeeId);
+		if (!response.isPresent()) {
 			throw new RuntimeException("No records found for emp id");
 		}
 		return response.get();
+	}
+
+	@Transactional
+	@Override
+	public String updateEmployee(EmployeeRequest employeeRequest, String empId) {
+		Employee response = getEmployeeById(empId);
+
+		if (StringUtils.isNotBlank(employeeRequest.getName())) {
+			response.setName(employeeRequest.getName());
+		}
+		if (StringUtils.isNotBlank(employeeRequest.getMobileNumber())) {
+			response.setMobileNumber(employeeRequest.getMobileNumber());
+		}
+
+		if (employeeRequest.getAge() != null && employeeRequest.getAge() > 0) {
+			response.setAge(employeeRequest.getAge());
+		}
+		if (StringUtils.isNotBlank(employeeRequest.getEmailId())) {
+			response.setEmailId(employeeRequest.getEmailId());
+		}
+
+		Employee updatedResponse = employeeRepository.save(response);
+		if (updatedResponse == null) {
+			return null;
+		}
+		return "Updated successfully";
+	}
+
+	@Transactional
+	@Override
+	public String updatePassword(String employeeId, String password) {
+		// String status = "INACTIVE";
+		// employeeRepository.deactiveEmployee(employeeId, status);
+
+		employeeRepository.updatePassword(employeeId, password);
+
+		return "updated successfully";
+	}
+
+	@Transactional
+	@Override
+	public String deleteEmployeeById(String employeeId) {
+		// getEmployeeById(employeeId);
+		// employeeRepository.deleteByEmpId(employeeId);
+		Employee response = getEmployeeById(employeeId);
+		employeeRepository.delete(response);
+		return "Deleted successfully";
 	}
 }
