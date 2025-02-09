@@ -1,0 +1,22 @@
+package com.employee.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.employee.dto.ExceptionResponse;
+
+@RestControllerAdvice
+public class EmployeeExceptionHandler {
+
+	@ExceptionHandler(value = EmployeeNotFoundException.class)
+	public ResponseEntity<ExceptionResponse> handleEmployeeNotFoundException(EmployeeNotFoundException ex) {
+		ExceptionResponse exceptionResponse = new ExceptionResponse();
+		exceptionResponse.setError(null);
+		exceptionResponse.setStatus("NOT FOUND");
+		exceptionResponse.setMessage(ex.getMessage());
+		exceptionResponse.setTimeStamp(null);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
+	}
+}

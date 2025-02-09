@@ -1,0 +1,11 @@
+package com.employee.dto;
+
+import java.time.LocalDateTime;
+
+public class ExceptionResponse {
+
+	private String status;
+	private String error;
+	private String message;
+	private LocalDateTime timeStamp;
+}
