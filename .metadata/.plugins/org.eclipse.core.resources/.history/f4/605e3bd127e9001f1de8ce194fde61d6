@@ -1,0 +1,18 @@
+package com.employee.util;
+
+import org.springframework.stereotype.Component;
+
+import com.employee.dto.AddressRequest;
+import com.employee.model.Address;
+
+@Component
+public class EmployeeUtil {
+
+	public Address convertAddressDtoToEntity(AddressRequest addressRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

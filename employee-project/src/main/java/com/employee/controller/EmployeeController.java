@@ -3,6 +3,7 @@ package com.employee.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.employee.dto.EmployeeRegRequest;
 import com.employee.dto.EmployeeRequest;
 import com.employee.dto.EmployeeResponse;
 import com.employee.model.Employee;
@@ -24,6 +26,7 @@ import com.employee.service.EmployeeService;
 @RequestMapping("/employee")
 public class EmployeeController {
 
+	@Qualifier(value = "service1")
 	@Autowired
 	EmployeeService employeeService;
 
@@ -38,8 +41,8 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeRequest employeeRequest) {
-		EmployeeResponse response = employeeService.createEmployee(employeeRequest);
+	public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeRegRequest employeeRegRequest) {
+		EmployeeResponse response = employeeService.createEmployee(employeeRegRequest);
 		if (response == null) {
 			EmployeeResponse empResponse = new EmployeeResponse();
 			empResponse.setEmpId(null);

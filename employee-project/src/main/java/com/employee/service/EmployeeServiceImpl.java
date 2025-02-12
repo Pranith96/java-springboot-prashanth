@@ -6,27 +6,39 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.employee.dto.EmployeeRegRequest;
 import com.employee.dto.EmployeeRequest;
 import com.employee.dto.EmployeeResponse;
 import com.employee.exception.EmployeeNotFoundException;
+import com.employee.model.Address;
 import com.employee.model.Employee;
 import com.employee.repository.EmployeeRepository;
 
 import io.micrometer.common.util.StringUtils;
 
-@Service
+@Service(value = "service1")
 public class EmployeeServiceImpl implements EmployeeService {
+
+	@Value("${server.port}")
+	private String portNumber;
 
 	@Autowired
 	EmployeeRepository employeeRepository;
 
+	@Autowired
+	AddressService addressService;
+
+	@Transactional
 	@Override
-	public EmployeeResponse createEmployee(EmployeeRequest employeeRequest) {
-		Employee response = employeeRepository.save(convertEmpDtoToEntity(employeeRequest));
-		if (response == null) {
+	public EmployeeResponse createEmployee(EmployeeRegRequest employeeRegRequest) {
+		Employee response = employeeRepository.save(convertEmpDtoToEntity(employeeRegRequest.getEmpRequest()));
+		employeeRegRequest.getAddressRequest().setEmpId(response.getEmpId());
+		Address address = addressService.saveAddress(employeeRegRequest.getAddressRequest());
+		if (response == null || address == null) {
 			return null;
 		}
 		return convertEmpReponseToDto(response);
@@ -63,6 +75,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<Employee> getAllEmployees(String activeTag) {
 		List<Employee> results = null;
 
+		System.out.println("portnumber " + portNumber);
 		if (StringUtils.isNotBlank(activeTag)) {
 			if ("Y".equals(activeTag)) {
 				results = employeeRepository.findAll().stream().filter(emp -> emp.getStatus().equals("ACTIVE"))

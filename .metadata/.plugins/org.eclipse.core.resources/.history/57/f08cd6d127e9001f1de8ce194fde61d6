@@ -1,0 +1,22 @@
+package com.employee.util;
+
+import org.springframework.stereotype.Component;
+
+import com.employee.dto.AddressRequest;
+import com.employee.model.Address;
+
+@Component
+public class EmployeeUtil {
+
+	public Address convertAddressDtoToEntity(AddressRequest addressRequest) {
+		Address ad = new Address();
+
+		ad.setCity(addressRequest.getCity());
+		ad.setEmpId(addressRequest.getEmpId());
+		ad.setPincode(addressRequest.getPincode());
+		ad.setPlotNo(addressRequest.getPlotNo());
+		ad.setState(addressRequest.getState());
+		return ad;
+	}
+
+}
