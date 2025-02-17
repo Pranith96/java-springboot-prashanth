@@ -1,7 +1,0 @@
-package com.employee.dto;
-
-public class EmployeeRegRequest {
-
-	private AddressRequest addressRequest;
-	private EmployeeRequest empRequest;
-}
