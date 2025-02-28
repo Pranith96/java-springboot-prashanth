@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/product?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: root
+    temp: pranith
