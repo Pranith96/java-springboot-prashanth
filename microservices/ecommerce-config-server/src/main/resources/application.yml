@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: ecommerce-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Pranith96/ecommerce-config-skeleton-service
+          default-label: master
+          search-paths:
+            - cart-service
+            - product-service
+          clone-on-start: true
+          refresh-rate: 10
+        username:
+        password:
+          
+
+server:
+  port: 8888
