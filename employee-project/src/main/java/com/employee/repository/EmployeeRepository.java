@@ -2,6 +2,8 @@ package com.employee.repository;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +21,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	void updatePassword(String employeeId, String password);
 
 	void deleteByEmpId(String employeeId);
+
+	Page<Employee> findByName(String empName, Pageable pageable);
 
 	// Optional<Employee> findByName(String password);
 	// Optional<Employee> findByNameAndPassword(String name, String password);

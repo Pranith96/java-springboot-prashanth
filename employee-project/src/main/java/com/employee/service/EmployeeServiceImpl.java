@@ -1,5 +1,6 @@
 package com.employee.service;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -7,9 +8,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.employee.dto.EmployeePageRequest;
 import com.employee.dto.EmployeeRegRequest;
 import com.employee.dto.EmployeeRequest;
 import com.employee.dto.EmployeeResponse;
@@ -148,5 +153,26 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee response = getEmployeeById(employeeId);
 		employeeRepository.delete(response);
 		return "Deleted successfully";
+	}
+
+	@Override
+	public List<Employee> getEmployeeByNameWithPagination(EmployeePageRequest employeePageRequest) {
+
+		int pageNum = employeePageRequest.getPageNumber();
+		int pageSize = employeePageRequest.getPageSize();
+
+		Pageable pageable = PageRequest.of(pageNum, pageSize);
+//		List<Employee> results = employeeRepository.findByName(employeePageRequest.getEmpName());
+//		System.out.println(results.size());
+//		int offSet = (employeePageRequest.getPageNumber()-1) * employeePageRequest.getPageSize();
+//		System.out.println(offSet);
+//		return results.stream().skip(offSet).limit(employeePageRequest.getPageSize()).collect(Collectors.toList());
+		Page<Employee> emp = employeeRepository.findByName(employeePageRequest.getEmpName(), pageable);
+
+		if (pageNum > emp.getTotalPages() - 1) {
+			Pageable pageable1 = PageRequest.of(emp.getTotalPages()-1, employeePageRequest.getPageSize());
+			emp = employeeRepository.findByName(employeePageRequest.getEmpName(), pageable1);
+		}
+		return emp.getContent();
 	}
 }

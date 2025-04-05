@@ -2,6 +2,7 @@ package com.employee.service;
 
 import java.util.List;
 
+import com.employee.dto.EmployeePageRequest;
 import com.employee.dto.EmployeeRegRequest;
 import com.employee.dto.EmployeeRequest;
 import com.employee.dto.EmployeeResponse;
@@ -20,5 +21,7 @@ public interface EmployeeService {
 	String updatePassword(String employeeId, String password);
 
 	String deleteEmployeeById(String employeeId);
+
+	List<Employee> getEmployeeByNameWithPagination(EmployeePageRequest employeePageRequest);
 
 }

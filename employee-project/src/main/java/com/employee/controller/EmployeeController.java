@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.employee.dto.EmployeePageRequest;
 import com.employee.dto.EmployeeRegRequest;
 import com.employee.dto.EmployeeRequest;
 import com.employee.dto.EmployeeResponse;
@@ -64,6 +65,12 @@ public class EmployeeController {
 	@GetMapping("/{employeeId}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable("employeeId") String employeeId) {
 		Employee response = employeeService.getEmployeeById(employeeId);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	@GetMapping("/page")
+	public ResponseEntity<List<Employee>> getEmployeeByNameWithPagination(@RequestBody EmployeePageRequest employeePageRequest) {
+		List<Employee> response = employeeService.getEmployeeByNameWithPagination(employeePageRequest);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 

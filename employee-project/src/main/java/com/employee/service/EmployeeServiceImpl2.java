@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.employee.dto.EmployeePageRequest;
 import com.employee.dto.EmployeeRegRequest;
 import com.employee.dto.EmployeeRequest;
 import com.employee.dto.EmployeeResponse;
@@ -138,5 +139,11 @@ public class EmployeeServiceImpl2 implements EmployeeService {
 		Employee response = getEmployeeById(employeeId);
 		employeeRepository.delete(response);
 		return "Deleted successfully";
+	}
+
+	@Override
+	public List<Employee> getEmployeeByNameWithPagination(EmployeePageRequest employeePageRequest) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
